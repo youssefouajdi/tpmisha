@@ -33,10 +33,8 @@ class Model{
 		$signer->execute(array($idp,$nom,$prenom,$email,$pays,date('Y-m-d'),date('H:i:s')));  }
 	
 		public function hotPetition(){
-			
-			$hot = $this->pdo->query("select nom from petition ");
-			return $hot;
-			
+			$hot = $this->pdo->query("select p.Titre from petition p,signature s where p.IDP=s.IDP group by s.idp order by count(s.idp) desc limit 1");
+		return $hot;
 		}
 		function fiveLastSigns(){
 			$five = $this->pdo->query("select * from signature order by Heure DESC limit 5");
